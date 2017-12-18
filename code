@@ -1,0 +1,22 @@
+#!/usr/bin/python
+import urllib2
+import smtplib
+SERVER = "localhost"
+FROM = " "
+TO = ["abc@zyz.com"]
+SUBJECT = "This is an alert mail"
+TEXT = "You have crossed the thresold on this service"
+message = """\
+From: %s
+To: %s
+Subject: %s
+
+%s
+""" % (FROM, ", ".join(TO), SUBJECT, TEXT)  
+
+download = urllib2.urlopen('http://x.x.x.x/abc.html')
+html = download.read()
+if "not" in html:
+ server = smtplib.SMTP(SERVER)
+ server.sendmail(FROM, TO, message)
+ server.quit()
